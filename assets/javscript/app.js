@@ -13,7 +13,7 @@ $(document).ready(function () {
 
   function grab_gifs() {
     var apikey = "lithhVQDOaavEcxQbEX0Vywb6Bb60syr"
-    var queryUrl = "http://api.giphy.com/v1/gifs/search"
+    var queryUrl = "https://api.giphy.com/v1/gifs/search"
     queryUrl += "?" + $.param({
       "q": term,
       "api_key": apikey,
