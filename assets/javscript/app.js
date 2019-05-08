@@ -115,7 +115,8 @@ $(document).ready(function () {
         }
 
     }
-    localStorage.setItem("theme", JSON.stringify(new_theme))
+    theme=new_theme
+    localStorage.setItem("theme", JSON.stringify(theme))
      $(this).parent().remove()
   })
 
