@@ -4,7 +4,7 @@ $(document).ready(function () {
   var term
   var rating
   var limit
-  var theme
+  var theme=[]
   //grab saved searches from locaStorage
   if (JSON.parse(localStorage.getItem("theme")) === null) {
     theme = []
@@ -106,18 +106,23 @@ $(document).ready(function () {
   })
   //delete theme
   $(document).on("click",".checkbox", function () {
-    var theme=$(this).attr("data-to-do")
+    var index= parseInt($(this).attr("data-to-do"))
     var new_theme=[]
-
-    for(var i;i<theme.length;i++){
-        if(i!==theme){
-          new_theme.push(them[i])
+    console.log(theme.length)
+    for(var i=0;i<theme.length;i++){
+      console.log(i)
+      console.log(index)
+      console.log(i!==index)
+        if(i!==index){
+          console.log(theme[i])
+          new_theme.push(theme[i])
         }
-
+     
     }
     theme=new_theme
     localStorage.setItem("theme", JSON.stringify(theme))
      $(this).parent().remove()
+     console.log(theme)
   })
 
   function height_adjust() {
