@@ -66,14 +66,14 @@ $(document).ready(function () {
       holder.addClass("theme")
       var delete_button =$("<button>")
       delete_button.attr("data-to-do", i)
-      delete_button.addClass("checkbox search_term button btn btn-outline-primary");
+      delete_button.addClass("checkbox search_term btn btn-outline-primary");
       delete_button.css("border-color", "transparent")
       delete_button.css("padding-left", 0)
       delete_button.css("top", 0)
       delete_button.text("x");
       
       var term_holder = $("<button>")
-      term_holder.addClass("search_term button btn btn-outline-primary")
+      term_holder.addClass("search_term  btn btn-outline-primary")
       term_holder.attr("data-search", theme[i])
       term_holder.text(theme[i])
       term_holder.prepend(delete_button)
@@ -133,7 +133,7 @@ $(document).ready(function () {
   $("#add_theme").on("click", function () {
     var addition = $("#theme_new").val().trim();
 
-    $("#theme_new").val("Theme")
+    $("#theme_new").val("")
     if (addition.length != 0 && repeat_check(addition)) {
 
       theme.push(addition)

@@ -13,10 +13,25 @@ body,
     border-bottom: .5px solid #01210F;
     z-index: 3;
 }
+#button_holder,.theme{
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    
+}
+
+.theme{
+    margin: 0 5%;
+    height: 45px;
+}
+#button_holder{
+    align-items: center;
+}
 
 .search_term {
     text-align: center;
-    margin: 1.5%;
+    color: #D0D3D4;
+    border-color: transparent !important;
 }
 
 #main {
@@ -67,6 +82,8 @@ body,
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out; */
 }
+
+
 .button:hover {
     background-color: #01210F;
     border-color: #01210F;
