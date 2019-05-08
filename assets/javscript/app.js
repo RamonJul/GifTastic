@@ -1,17 +1,20 @@
 $(document).ready(function () {
   var img_holder = $("#gif_holder")
+  //declare global variablef for search
   var term
   var rating
   var limit
   var theme
+  //grab saved searches from locaStorage
   if (JSON.parse(localStorage.getItem("theme")) === null) {
     theme = []
   } else {
     theme = JSON.parse(localStorage.getItem("theme"))
+    render_buttons();
   }
-  var width = window.matchMedia("(max-width:575px)")
-
+  
   function grab_gifs() {
+    //grab gifs from giphys
     var apikey = "lithhVQDOaavEcxQbEX0Vywb6Bb60syr"
     var queryUrl = "http://api.giphy.com/v1/gifs/search"
     queryUrl += "?" + $.param({
@@ -42,6 +45,53 @@ $(document).ready(function () {
 
       })
   }
+
+
+
+  function repeat_check(check) {
+    //checks if a theme is a repeat
+    var no_repeat = true
+    for (var i = 0; i < theme.length; i++) {
+      if (check === theme[i])
+        no_repeat = false
+    }
+    return no_repeat;
+  }
+
+  function render_buttons() {
+  //renders the buttons on the screen
+    $("#button_holder").empty();
+    for (var i = 0; i < theme.length; i++) {
+      var holder =$("<div>")
+      holder.addClass("theme")
+      var delete_button =$("<button>")
+      delete_button.attr("data-to-do", i)
+      delete_button.addClass("checkbox search_term button btn btn-outline-primary");
+      delete_button.css("border-color", "transparent")
+      delete_button.css("padding-left", 0)
+      delete_button.css("top", 0)
+      delete_button.text("x");
+      
+      var term_holder = $("<button>")
+      term_holder.addClass("search_term button btn btn-outline-primary")
+      term_holder.attr("data-search", theme[i])
+      term_holder.text(theme[i])
+      term_holder.prepend(delete_button)
+
+      holder.append(delete_button)
+      holder.append(term_holder)
+   
+      $("#button_holder").append(holder)
+      //adjust the theme holder section
+      if ( window.matchMedia("(max-width:575px)").matches) {
+        height_adjust()
+
+      }
+    }
+
+  }
+
+  //pause gif
   $(document).on("click", ".gif", function () {
     var that = $(this)
     if (that.attr("state") === "active") {
@@ -54,33 +104,20 @@ $(document).ready(function () {
     }
 
   })
+  //delete theme
+  $(document).on("click",".checkbox", function () {
+    var theme=$(this).attr("data-to-do")
+    var new_theme=[]
 
-  function repeat_check(check) {
-    var no_repeat = true
-    for (var i = 0; i < theme.length; i++) {
-      if (check === theme[i])
-        no_repeat = false
+    for(var i;i<theme.length;i++){
+        if(i!==theme){
+          new_theme.push(them[i])
+        }
+
     }
-    return no_repeat;
-  }
-
-  function render_buttons() {
-    $("#button_holder").empty();
-    for (var i = 0; i < theme.length; i++) {
-
-      var term_holder = $("<button>")
-      term_holder.addClass("search_term button btn btn-outline-primary")
-      term_holder.attr("data-search", theme[i])
-      term_holder.text(theme[i])
-
-      $("#button_holder").append(term_holder)
-      if (width.matches) {
-        height_adjust()
-
-      }
-    }
-
-  }
+    localStorage.setItem("theme", JSON.stringify(new_theme))
+     $(this).parent().remove()
+  })
 
   function height_adjust() {
     var height = $("#theme_list").css("height");
@@ -92,11 +129,13 @@ $(document).ready(function () {
 
 
 
-
+//add a new theme
   $("#add_theme").on("click", function () {
     var addition = $("#theme_new").val().trim();
+
     $("#theme_new").val("Theme")
     if (addition.length != 0 && repeat_check(addition)) {
+
       theme.push(addition)
       localStorage.setItem("theme", JSON.stringify(theme))
       render_buttons();
@@ -104,6 +143,8 @@ $(document).ready(function () {
   })
 
 
+
+  //apply filters
   $("#filter").on("click", function () {
 
 
@@ -112,6 +153,8 @@ $(document).ready(function () {
     grab_gifs("display")
   })
 
+
+  //clear filters
   $("#clear_filter").on("click", function () {
     limit = null
     rating = null
@@ -120,15 +163,20 @@ $(document).ready(function () {
 
 
   })
+
+  //clear all gifs
   $("#clear_gif").on("click", function () {
     img_holder.empty()
   })
 
+
+  //display all gifs with a sepecific search term
   $(document).on("click", ".search_term", function () {
     term = $(this).attr("data-search")
     grab_gifs()
   });
 
+  // remove all theme buttons
   $("#clear_button").on("click", function () {
     $("#button_holder").empty();
     localStorage.clear()
@@ -136,7 +184,7 @@ $(document).ready(function () {
 
   })
 
-
+  //functions for responsiveness
   if (screen.width < 576) {
     height_adjust()
     $(".navbar-toggler").attr("disabled", false)
@@ -158,5 +206,5 @@ $(document).ready(function () {
 
   })
 
-  render_buttons();
+ 
 })
