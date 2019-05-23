@@ -11,4 +11,9 @@ The webpage was optimized to be used in mobile devices where the search portions
 
 ### Adding and deleting themes
 
+
+![alt text](https://res.cloudinary.com/daawmv4sy/image/upload/v1558638370/readme/giphy.gif "adding and deleting buttons")
+
 ### Searching and Filtering Gifs
+
+![alt text](https://media.giphy.com/media/g0NdbXlLwSB4WAgmDk/giphy.gif)
